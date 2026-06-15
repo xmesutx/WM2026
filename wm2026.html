@@ -378,29 +378,11 @@
 
     function teamDaten(spiele) {
       const map = {};
-      const heute = new Date();
 
       for (const s of spiele) {
         if (!s.score || !s.score.ft) continue;
 
-        // Analysiere alle Spiele: Qualifikation, Freundschaften UND Gruppenspiele vor/bis jetzt
-        const spielDatum = new Date(s.date);
-        const istVorWm = spielDatum < WM_START;
-        const istGruppenspiel = s.group !== undefined;
-
-        // Nur Spiele ANALYSIEREN, die:
-        // 1. VOR WM-Start sind (für Vorbereitung) ODER
-        // 2. Nach WM-Start sind UND Gruppenspiele
-        const sollAn = istVorWm || (istGruppenspiel && spielDatum >= WM_START);
-        if (!sollAn && !istGruppenspiel) continue;
-        if (istGruppenspiel && spielDatum >= WM_START) {
-          // Nur Gruppenspiele nach WM-Start analysieren für aktuelle Form
-        } else if (istVorWm) {
-          // Pre-WM Spiele analysieren
-        } else {
-          continue;
-        }
-
+        // Analysiere ALLE Spiele: Pre-WM Freundschaften/Qualifikation + WM Gruppenspiele
         for (const t of [s.team1, s.team2]) {
           if (!map[t]) map[t] = { sp: 0, tore: 0, gegen: 0, pkt: 0, form: [], spiele: [] };
         }
