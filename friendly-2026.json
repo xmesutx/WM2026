@@ -1,0 +1,83 @@
+{
+  "matches": [
+    {"date": "2026-05-26", "team1": "France", "team2": "Germany", "score": {"ft": [2, 1]}, "round": "Friendly"},
+    {"date": "2026-05-26", "team1": "Spain", "team2": "Portugal", "score": {"ft": [1, 1]}, "round": "Friendly"},
+    {"date": "2026-05-26", "team1": "England", "team2": "Brazil", "score": {"ft": [1, 2]}, "round": "Friendly"},
+    {"date": "2026-05-26", "team1": "Argentina", "team2": "Uruguay", "score": {"ft": [3, 1]}, "round": "Friendly"},
+
+    {"date": "2026-05-27", "team1": "Netherlands", "team2": "Belgium", "score": {"ft": [2, 0]}, "round": "Friendly"},
+    {"date": "2026-05-27", "team1": "Italy", "team2": "Austria", "score": {"ft": [1, 1]}, "round": "Friendly"},
+    {"date": "2026-05-27", "team1": "Poland", "team2": "Turkey", "score": {"ft": [0, 1]}, "round": "Friendly"},
+    {"date": "2026-05-27", "team1": "Colombia", "team2": "Ecuador", "score": {"ft": [2, 1]}, "round": "Friendly"},
+
+    {"date": "2026-05-28", "team1": "Mexico", "team2": "Canada", "score": {"ft": [2, 0]}, "round": "Friendly"},
+    {"date": "2026-05-28", "team1": "USA", "team2": "Jamaica", "score": {"ft": [3, 1]}, "round": "Friendly"},
+    {"date": "2026-05-28", "team1": "Japan", "team2": "South Korea", "score": {"ft": [1, 0]}, "round": "Friendly"},
+    {"date": "2026-05-28", "team1": "Australia", "team2": "New Zealand", "score": {"ft": [2, 1]}, "round": "Friendly"},
+
+    {"date": "2026-05-29", "team1": "Germany", "team2": "Czech Republic", "score": {"ft": [3, 0]}, "round": "Friendly"},
+    {"date": "2026-05-29", "team1": "Belgium", "team2": "Romania", "score": {"ft": [2, 1]}, "round": "Friendly"},
+    {"date": "2026-05-29", "team1": "Denmark", "team2": "Bosnia", "score": {"ft": [1, 0]}, "round": "Friendly"},
+    {"date": "2026-05-29", "team1": "Switzerland", "team2": "Croatia", "score": {"ft": [1, 1]}, "round": "Friendly"},
+
+    {"date": "2026-05-30", "team1": "Brazil", "team2": "Colombia", "score": {"ft": [3, 0]}, "round": "Friendly"},
+    {"date": "2026-05-30", "team1": "Argentina", "team2": "Chile", "score": {"ft": [2, 1]}, "round": "Friendly"},
+    {"date": "2026-05-30", "team1": "Paraguay", "team2": "Bolivia", "score": {"ft": [2, 2]}, "round": "Friendly"},
+    {"date": "2026-05-30", "team1": "Peru", "team2": "Venezuela", "score": {"ft": [1, 0]}, "round": "Friendly"},
+
+    {"date": "2026-05-31", "team1": "France", "team2": "Norway", "score": {"ft": [3, 0]}, "round": "Friendly"},
+    {"date": "2026-05-31", "team1": "England", "team2": "Scotland", "score": {"ft": [2, 1]}, "round": "Friendly"},
+    {"date": "2026-05-31", "team1": "Spain", "team2": "Greece", "score": {"ft": [2, 0]}, "round": "Friendly"},
+    {"date": "2026-05-31", "team1": "Netherlands", "team2": "Luxembourg", "score": {"ft": [4, 0]}, "round": "Friendly"},
+
+    {"date": "2026-06-01", "team1": "Italy", "team2": "Malta", "score": {"ft": [3, 0]}, "round": "Friendly"},
+    {"date": "2026-06-01", "team1": "Portugal", "team2": "Slovenia", "score": {"ft": [2, 0]}, "round": "Friendly"},
+    {"date": "2026-06-01", "team1": "Germany", "team2": "Ukraine", "score": {"ft": [2, 1]}, "round": "Friendly"},
+    {"date": "2026-06-01", "team1": "Belgium", "team2": "Moldova", "score": {"ft": [3, 0]}, "round": "Friendly"},
+
+    {"date": "2026-06-02", "team1": "France", "team2": "Ireland", "score": {"ft": [3, 1]}, "round": "Friendly"},
+    {"date": "2026-06-02", "team1": "Spain", "team2": "Andorra", "score": {"ft": [5, 0]}, "round": "Friendly"},
+    {"date": "2026-06-02", "team1": "England", "team2": "Iceland", "score": {"ft": [1, 0]}, "round": "Friendly"},
+    {"date": "2026-06-02", "team1": "Japan", "team2": "China", "score": {"ft": [2, 0]}, "round": "Friendly"},
+
+    {"date": "2026-06-03", "team1": "Brazil", "team2": "Costa Rica", "score": {"ft": [4, 1]}, "round": "Friendly"},
+    {"date": "2026-06-03", "team1": "Argentina", "team2": "Bolivia", "score": {"ft": [3, 0]}, "round": "Friendly"},
+    {"date": "2026-06-03", "team1": "Mexico", "team2": "El Salvador", "score": {"ft": [2, 1]}, "round": "Friendly"},
+    {"date": "2026-06-03", "team1": "USA", "team2": "Trinidad and Tobago", "score": {"ft": [2, 0]}, "round": "Friendly"},
+
+    {"date": "2026-06-04", "team1": "Netherlands", "team2": "Iceland", "score": {"ft": [3, 1]}, "round": "Friendly"},
+    {"date": "2026-06-04", "team1": "Germany", "team2": "Denmark", "score": {"ft": [2, 0]}, "round": "Friendly"},
+    {"date": "2026-06-04", "team1": "Belgium", "team2": "Lebanon", "score": {"ft": [2, 0]}, "round": "Friendly"},
+    {"date": "2026-06-04", "team1": "Switzerland", "team2": "Liechtenstein", "score": {"ft": [4, 0]}, "round": "Friendly"},
+
+    {"date": "2026-06-05", "team1": "France", "team2": "Poland", "score": {"ft": [2, 1]}, "round": "Friendly"},
+    {"date": "2026-06-05", "team1": "England", "team2": "Netherlands", "score": {"ft": [1, 1]}, "round": "Friendly"},
+    {"date": "2026-06-05", "team1": "Spain", "team2": "Northern Ireland", "score": {"ft": [3, 1]}, "round": "Friendly"},
+    {"date": "2026-06-05", "team1": "Italy", "team2": "Cyprus", "score": {"ft": [2, 0]}, "round": "Friendly"},
+
+    {"date": "2026-06-06", "team1": "Brazil", "team2": "Uruguay", "score": {"ft": [2, 1]}, "round": "Friendly"},
+    {"date": "2026-06-06", "team1": "Argentina", "team2": "Paraguay", "score": {"ft": [2, 0]}, "round": "Friendly"},
+    {"date": "2026-06-06", "team1": "Colombia", "team2": "Chile", "score": {"ft": [1, 1]}, "round": "Friendly"},
+    {"date": "2026-06-06", "team1": "Mexico", "team2": "Honduras", "score": {"ft": [3, 0]}, "round": "Friendly"},
+
+    {"date": "2026-06-07", "team1": "Germany", "team2": "France", "score": {"ft": [1, 1]}, "round": "Friendly"},
+    {"date": "2026-06-07", "team1": "Japan", "team2": "Philippines", "score": {"ft": [2, 0]}, "round": "Friendly"},
+    {"date": "2026-06-07", "team1": "Australia", "team2": "Tajikistan", "score": {"ft": [3, 0]}, "round": "Friendly"},
+    {"date": "2026-06-07", "team1": "USA", "team2": "Panama", "score": {"ft": [1, 0]}, "round": "Friendly"},
+
+    {"date": "2026-06-08", "team1": "France", "team2": "Bulgaria", "score": {"ft": [3, 0]}, "round": "Friendly"},
+    {"date": "2026-06-08", "team1": "Spain", "team2": "Serbia", "score": {"ft": [2, 1]}, "round": "Friendly"},
+    {"date": "2026-06-08", "team1": "England", "team2": "Malta", "score": {"ft": [2, 0]}, "round": "Friendly"},
+    {"date": "2026-06-08", "team1": "Netherlands", "team2": "Bosnia", "score": {"ft": [2, 0]}, "round": "Friendly"},
+
+    {"date": "2026-06-09", "team1": "Brazil", "team2": "Mexico", "score": {"ft": [3, 1]}, "round": "Friendly"},
+    {"date": "2026-06-09", "team1": "Argentina", "team2": "Ecuador", "score": {"ft": [2, 0]}, "round": "Friendly"},
+    {"date": "2026-06-09", "team1": "Colombia", "team2": "Bolivia", "score": {"ft": [2, 1]}, "round": "Friendly"},
+    {"date": "2026-06-09", "team1": "Uruguay", "team2": "Peru", "score": {"ft": [1, 0]}, "round": "Friendly"},
+
+    {"date": "2026-06-10", "team1": "Germany", "team2": "England", "score": {"ft": [1, 0]}, "round": "Friendly"},
+    {"date": "2026-06-10", "team1": "Belgium", "team2": "Portugal", "score": {"ft": [1, 2]}, "round": "Friendly"},
+    {"date": "2026-06-10", "team1": "Netherlands", "team2": "Denmark", "score": {"ft": [0, 0]}, "round": "Friendly"},
+    {"date": "2026-06-10", "team1": "France", "team2": "Japan", "score": {"ft": [2, 1]}, "round": "Friendly"}
+  ]
+}
