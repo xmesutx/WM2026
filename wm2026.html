@@ -4,33 +4,90 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WM 2026 - Analyse & Tipp</title>
+
+  <!-- PWA: macht die Seite auf dem Handy installierbar -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0b3d2e">
   <link rel="apple-touch-icon" href="icon.svg">
+
+  <!-- ===== Aussehen (CSS) ===== -->
   <style>
     * { box-sizing: border-box; }
-    body { font-family: "Segoe UI", Arial, sans-serif; background: linear-gradient(160deg, #0b3d2e 0%, #062019 100%); background-attachment: fixed; color: #ffffff; margin: 0; padding: 0 0 60px; }
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(160deg, #0b3d2e 0%, #062019 100%);
+      background-attachment: fixed;
+      color: #ffffff;
+      margin: 0;
+      padding: 0 0 60px;
+    }
     .wrap { max-width: 920px; margin: 0 auto; padding: 0 16px; }
-    h1 { text-align: center; margin: 0; padding: 22px 10px 6px; font-size: 30px; letter-spacing: 0.5px; }
+
+    h1 {
+      text-align: center; margin: 0; padding: 22px 10px 6px;
+      font-size: 30px; letter-spacing: 0.5px;
+    }
     #status { text-align: center; font-size: 15px; color: #cfe8d8; margin-bottom: 6px; }
-    nav { position: sticky; top: 0; z-index: 5; background: #062019ee; backdrop-filter: blur(4px); text-align: center; padding: 10px; margin-bottom: 10px; border-bottom: 1px solid #ffffff22; }
-    nav a { color: #ffffff; text-decoration: none; font-size: 14px; font-weight: bold; margin: 0 8px; padding: 6px 12px; border-radius: 20px; background: #ffffff18; display: inline-block; }
+
+    /* Navigationsleiste */
+    nav {
+      position: sticky; top: 0; z-index: 5;
+      background: #062019ee; backdrop-filter: blur(4px);
+      text-align: center; padding: 10px; margin-bottom: 10px;
+      border-bottom: 1px solid #ffffff22;
+    }
+    nav a {
+      color: #ffffff; text-decoration: none; font-size: 14px; font-weight: bold;
+      margin: 0 8px; padding: 6px 12px; border-radius: 20px; background: #ffffff18;
+      display: inline-block;
+    }
     nav a:hover { background: #f6c945; color: #0b3d2e; }
-    h2 { text-align: center; margin-top: 36px; font-size: 22px; scroll-margin-top: 60px; }
-    .gruppe { font-size: 19px; font-weight: bold; margin: 22px 0 8px; padding-bottom: 4px; border-bottom: 2px solid #f6c94588; color: #f6c945; }
-    .spiel { background: #ffffff12; border: 1px solid #ffffff14; border-radius: 10px; padding: 9px 14px; margin: 5px 0; display: grid; grid-template-columns: 92px 1fr 132px 1fr; column-gap: 10px; align-items: center; transition: background 0.15s; }
+
+    h2 {
+      text-align: center; margin-top: 36px; font-size: 22px;
+      scroll-margin-top: 60px;
+    }
+
+    .gruppe {
+      font-size: 19px; font-weight: bold; margin: 22px 0 8px;
+      padding-bottom: 4px; border-bottom: 2px solid #f6c94588; color: #f6c945;
+    }
+
+    .spiel {
+      background: #ffffff12;
+      border: 1px solid #ffffff14;
+      border-radius: 10px;
+      padding: 9px 14px;
+      margin: 5px 0;
+      display: grid;
+      grid-template-columns: 92px 1fr 132px 1fr;
+      column-gap: 10px;
+      align-items: center;
+      transition: background 0.15s;
+    }
     .spiel:hover { background: #ffffff22; }
-    .datum { color: #9fc6b3; font-size: 13px; }
-    .heim { text-align: right; }
-    .gast { text-align: left; }
-    .mitte { text-align: center; justify-self: center; white-space: nowrap; }
-    .ergebnis { display: inline-block; justify-self: center; min-width: 58px; text-align: center; font-weight: bold; background: #f6c945; color: #0b3d2e; border-radius: 6px; padding: 4px 8px; }
+    .datum  { color: #9fc6b3; font-size: 13px; }
+    .heim   { text-align: right; }
+    .gast   { text-align: left; }
+    .mitte  { text-align: center; justify-self: center; white-space: nowrap; }
+    .ergebnis {
+      display: inline-block;
+      justify-self: center;
+      min-width: 58px;
+      text-align: center;
+      font-weight: bold;
+      background: #f6c945; color: #0b3d2e;
+      border-radius: 6px;
+      padding: 4px 8px;
+    }
     .offen { background: #ffffff25; color: #cfe8d8; font-weight: normal; }
     .subinfo { font-size: 12px; color: #cfe8d8; padding: 0 0 8px 102px; margin-top: -3px; }
+
     .formS { color: #5bd66f; font-weight: bold; }
     .formU { color: #cccccc; font-weight: bold; }
     .formN { color: #ff6b6b; font-weight: bold; }
     .punkteGut { color: #5bd66f; font-weight: bold; }
+
     .tabelle-box { display: inline-block; vertical-align: top; margin: 8px; width: 430px; max-width: 100%; }
     .tabellen-bereich { text-align: center; }
     table { border-collapse: collapse; background: #ffffff10; border-radius: 10px; overflow: hidden; width: 100%; table-layout: fixed; }
@@ -38,39 +95,63 @@
     th { background: #ffffff25; }
     th:nth-child(1), td:nth-child(1) { width: 24px; }
     th:nth-child(2), td:nth-child(2) { text-align: left; }
-    th:nth-child(3), td:nth-child(3), th:nth-child(4), td:nth-child(4), th:nth-child(5), td:nth-child(5), th:nth-child(6), td:nth-child(6) { width: 26px; }
+    th:nth-child(3), td:nth-child(3),
+    th:nth-child(4), td:nth-child(4),
+    th:nth-child(5), td:nth-child(5),
+    th:nth-child(6), td:nth-child(6) { width: 26px; }
     th:nth-child(7), td:nth-child(7) { width: 44px; }
     th:nth-child(8), td:nth-child(8) { width: 36px; }
     th:nth-child(9), td:nth-child(9) { width: 30px; }
     td.teamname { text-align: left; }
     tr:nth-child(even) td { background: #ffffff0a; }
     caption { font-size: 17px; font-weight: bold; padding: 6px; color: #f6c945; }
-    .tippfeld { width: 38px; text-align: center; font-size: 15px; border: none; border-radius: 5px; padding: 4px; margin: 0 2px; }
-    #punktestand { text-align: center; font-size: 22px; font-weight: bold; background: #f6c945; color: #0b3d2e; border-radius: 10px; padding: 12px; margin: 12px auto; max-width: 340px; position: sticky; top: 56px; z-index: 4; box-shadow: 0 4px 12px #00000040; }
+
+    .tippfeld {
+      width: 38px; text-align: center; font-size: 15px;
+      border: none; border-radius: 5px; padding: 4px; margin: 0 2px;
+    }
+    #punktestand {
+      text-align: center; font-size: 22px; font-weight: bold;
+      background: #f6c945; color: #0b3d2e;
+      border-radius: 10px; padding: 12px; margin: 12px auto; max-width: 340px;
+      position: sticky; top: 56px; z-index: 4;
+      box-shadow: 0 4px 12px #00000040;
+    }
   </style>
 </head>
 <body>
+
   <h1>⚽ WM 2026 – Analyse & Tipp</h1>
   <div id="status">Lade Spieldaten aus dem Internet…</div>
+
   <nav>
     <a href="#tabellen-titel">🏆 Tabellen</a>
     <a href="#tipps-titel">🔮 Tipp-Vorschläge</a>
     <a href="#meine-titel">🎯 Meine Tipps</a>
     <a href="#spiele-titel">📅 Alle Spiele</a>
   </nav>
+
   <div class="wrap">
+
     <h2 id="tabellen-titel">🏆 Gruppentabellen</h2>
     <div id="tabellen" class="tabellen-bereich"></div>
+
     <h2 id="tipps-titel">🔮 Tipp-Vorschläge (kommende Gruppenspiele)</h2>
     <div id="tipps"></div>
+
     <h2 id="meine-titel">🎯 Meine Tipps</h2>
     <div id="punktestand">Deine Tipp-Punkte: 0</div>
     <div id="meinetipps"></div>
+
     <h2 id="spiele-titel">📅 Alle Spiele</h2>
     <div id="spiele"></div>
+
   </div>
+
+  <!-- ===== Programm (JavaScript) ===== -->
   <script>
     const DATEN_URL = "https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json";
+
     async function ladeSpiele() {
       try {
         const antwort = await fetch(DATEN_URL);
@@ -79,14 +160,18 @@
         zeigeTipps(daten.matches);
         zeigeMeineTipps(daten.matches);
         zeigeSpiele(daten.matches);
-        document.getElementById("status").textContent = daten.matches.length + " Spiele geladen ✅";
+        document.getElementById("status").textContent =
+          daten.matches.length + " Spiele geladen ✅";
       } catch (fehler) {
-        document.getElementById("status").textContent = "Fehler beim Laden 😕 – bist du online? (" + fehler + ")";
+        document.getElementById("status").textContent =
+          "Fehler beim Laden 😕 – bist du online? (" + fehler + ")";
       }
     }
+
     function zeigeSpiele(spiele) {
       const behaelter = document.getElementById("spiele");
       let aktuelleGruppe = "";
+
       for (const spiel of spiele) {
         const titel = spiel.group ? spiel.group : spiel.round;
         if (titel !== aktuelleGruppe) {
@@ -96,45 +181,63 @@
           h.textContent = titel;
           behaelter.appendChild(h);
         }
+
         let ergebnisText = "–:–";
         let ergebnisKlasse = "ergebnis offen";
         if (spiel.score && spiel.score.ft) {
           ergebnisText = spiel.score.ft[0] + ":" + spiel.score.ft[1];
           ergebnisKlasse = "ergebnis";
         }
+
         const zeile = document.createElement("div");
         zeile.className = "spiel";
-        zeile.innerHTML = '<span class="datum">' + spiel.date + '</span><span class="heim">' + spiel.team1 + '</span><span class="' + ergebnisKlasse + '">' + ergebnisText + '</span><span class="gast">' + spiel.team2 + '</span>';
+        zeile.innerHTML =
+          '<span class="datum">' + spiel.date + '</span>' +
+          '<span class="heim">' + spiel.team1 + '</span>' +
+          '<span class="' + ergebnisKlasse + '">' + ergebnisText + '</span>' +
+          '<span class="gast">' + spiel.team2 + '</span>';
         behaelter.appendChild(zeile);
       }
     }
+
     function berechneTabellen(spiele) {
       const gruppen = {};
+
       for (const s of spiele) {
         if (!s.group) continue;
         if (!gruppen[s.group]) gruppen[s.group] = {};
         const g = gruppen[s.group];
+
         for (const t of [s.team1, s.team2]) {
           if (!g[t]) g[t] = { team: t, sp: 0, s: 0, u: 0, n: 0, tore: 0, gegen: 0, pkt: 0 };
         }
+
         if (s.score && s.score.ft) {
           const heim = s.score.ft[0];
           const gast = s.score.ft[1];
           const T1 = g[s.team1];
           const T2 = g[s.team2];
+
           T1.sp++; T2.sp++;
           T1.tore += heim; T1.gegen += gast;
           T2.tore += gast; T2.gegen += heim;
-          if (heim > gast) { T1.s++; T2.n++; T1.pkt += 3; }
-          else if (heim < gast) { T2.s++; T1.n++; T2.pkt += 3; }
-          else { T1.u++; T2.u++; T1.pkt += 1; T2.pkt += 1; }
+
+          if (heim > gast) {
+            T1.s++; T2.n++; T1.pkt += 3;
+          } else if (heim < gast) {
+            T2.s++; T1.n++; T2.pkt += 3;
+          } else {
+            T1.u++; T2.u++; T1.pkt += 1; T2.pkt += 1;
+          }
         }
       }
       return gruppen;
     }
+
     function zeigeTabellen(gruppen) {
       const bereich = document.getElementById("tabellen");
       const namen = Object.keys(gruppen).sort();
+
       for (const name of namen) {
         const teams = Object.values(gruppen[name]);
         teams.sort(function (a, b) {
@@ -143,20 +246,35 @@
           if (diffB !== diffA) return diffB - diffA;
           return b.tore - a.tore;
         });
-        let html = '<table><caption>' + name + '</caption><tr><th>#</th><th>Team</th><th>Sp</th><th>S</th><th>U</th><th>N</th><th>Tore</th><th>Diff</th><th>Pkt</th></tr>';
+
+        let html = '<table><caption>' + name + '</caption>' +
+          '<tr><th>#</th><th>Team</th><th>Sp</th><th>S</th><th>U</th><th>N</th><th>Tore</th><th>Diff</th><th>Pkt</th></tr>';
+
         let platz = 1;
         for (const t of teams) {
           const diff = t.tore - t.gegen;
-          html += '<tr><td>' + platz + '</td><td class="teamname">' + t.team + '</td><td>' + t.sp + '</td><td>' + t.s + '</td><td>' + t.u + '</td><td>' + t.n + '</td><td>' + t.tore + ':' + t.gegen + '</td><td>' + (diff > 0 ? '+' + diff : diff) + '</td><td><b>' + t.pkt + '</b></td></tr>';
+          html += '<tr>' +
+            '<td>' + platz + '</td>' +
+            '<td class="teamname">' + t.team + '</td>' +
+            '<td>' + t.sp + '</td>' +
+            '<td>' + t.s + '</td>' +
+            '<td>' + t.u + '</td>' +
+            '<td>' + t.n + '</td>' +
+            '<td>' + t.tore + ':' + t.gegen + '</td>' +
+            '<td>' + (diff > 0 ? '+' + diff : diff) + '</td>' +
+            '<td><b>' + t.pkt + '</b></td>' +
+            '</tr>';
           platz++;
         }
         html += '</table>';
+
         const box = document.createElement("div");
         box.className = "tabelle-box";
         box.innerHTML = html;
         bereich.appendChild(box);
       }
     }
+
     function teamDaten(spiele) {
       const map = {};
       for (const s of spiele) {
@@ -172,106 +290,167 @@
         T2.tore += a; T2.gegen += h;
         T1.spiele.push({tor: h, gegen: a});
         T2.spiele.push({tor: a, gegen: h});
-        if (h > a) { T1.pkt += 3; T1.form.push("S"); T2.form.push("N"); }
+        if (h > a)      { T1.pkt += 3; T1.form.push("S"); T2.form.push("N"); }
         else if (h < a) { T2.pkt += 3; T2.form.push("S"); T1.form.push("N"); }
-        else { T1.pkt++; T2.pkt++; T1.form.push("U"); T2.form.push("U"); }
+        else            { T1.pkt++; T2.pkt++; T1.form.push("U"); T2.form.push("U"); }
       }
       return map;
     }
+
+    // ===== NEUE LOGIK: Bessere Bewertung basierend auf letzten Spielen =====
     function werte(team, daten) {
       const d = daten[team];
       if (!d || d.sp === 0) {
+        // Team hat noch nicht gespielt: sehr schwache neutrale Werte
         return { angriff: 0.8, abwehr: 1.5, rating: 0.5, form: [] };
       }
+
+      // Angriff: Durchschnitt Tore pro Spiel (aus allen bisherigen Spielen)
       const angriff = d.tore / d.sp;
+
+      // Abwehr: Durchschnitt Gegentore pro Spiel
       const abwehr = d.gegen / d.sp;
+
+      // Form: nur die letzten 4 Spiele
       const letzte = d.form.slice(-4);
       let formPunkte = 0;
       for (const e of letzte) formPunkte += (e === "S" ? 3 : e === "U" ? 1 : 0);
       const formPpg = letzte.length ? formPunkte / letzte.length : 0;
+
+      // Punkte pro Spiel (Gesamt)
       const ppg = d.pkt / d.sp;
+
+      // Gesamtbewertung mit Gewichtung auf Form und Punkte
       const rating = ppg + (formPpg * 0.8);
+
       return { angriff: angriff, abwehr: abwehr, rating: rating, form: letzte };
     }
+
+    // ===== NEUE TIPPS-LOGIK: Stärkere Unterscheidung =====
     function tippFuer(team1, team2, daten) {
       const A = werte(team1, daten);
       const B = werte(team2, daten);
+
+      // Basis-Tipp: eigener Angriff trifft auf gegnerische Abwehr
       let gh = (A.angriff + B.abwehr) / 2;
       let ga = (B.angriff + A.abwehr) / 2;
+
+      // Stärkere Teams sollen klarer gewinnen
       const ratingDiff = A.rating - B.rating;
-      if (ratingDiff > 1.0) { gh += 0.8; }
-      else if (ratingDiff > 0.5) { gh += 0.4; }
-      else if (ratingDiff < -1.0) { ga += 0.8; }
-      else if (ratingDiff < -0.5) { ga += 0.4; }
+
+      if (ratingDiff > 1.0) {
+        // Team A deutlich stärker
+        gh += 0.8;
+      } else if (ratingDiff > 0.5) {
+        gh += 0.4;
+      } else if (ratingDiff < -1.0) {
+        // Team B deutlich stärker
+        ga += 0.8;
+      } else if (ratingDiff < -0.5) {
+        ga += 0.4;
+      }
+
+      // Runden auf ganze Zahlen
       gh = Math.round(gh);
       ga = Math.round(ga);
+
+      // Mindestens 0 Tore
       if (gh < 0) gh = 0;
       if (ga < 0) ga = 0;
+
+      // Nicht beide 0
       if (gh === 0 && ga === 0) {
         gh = A.rating > B.rating ? 1 : 0;
         ga = B.rating > A.rating ? 1 : 0;
       }
+
       return { gh: gh, ga: ga, formA: A.form, formB: B.form, ratingA: A.rating, ratingB: B.rating };
     }
+
     function formHtml(form) {
       if (!form || form.length === 0) return "–";
       return form.map(e => '<span class="form' + e + '">' + e + '</span>').join(" ");
     }
+
     function zeigeTipps(spiele) {
       const daten = teamDaten(spiele);
       const bereich = document.getElementById("tipps");
       bereich.innerHTML = "";
+
       const gruppen = [...new Set(spiele.filter(s => s.group).map(s => s.group))].sort();
       let anzahl = 0;
+
       for (const gruppe of gruppen) {
         const offene = spiele.filter(s => s.group === gruppe && !(s.score && s.score.ft));
         if (offene.length === 0) continue;
+
         const ueberschrift = document.createElement("div");
         ueberschrift.className = "gruppe";
         ueberschrift.textContent = gruppe;
         bereich.appendChild(ueberschrift);
+
         for (const s of offene) {
           const t = tippFuer(s.team1, s.team2, daten);
+
           let tendenz;
-          if (t.gh > t.ga) tendenz = "Tipp: " + s.team1 + " gewinnt";
+          if (t.gh > t.ga)      tendenz = "Tipp: " + s.team1 + " gewinnt";
           else if (t.gh < t.ga) tendenz = "Tipp: " + s.team2 + " gewinnt";
-          else tendenz = "Tipp: Unentschieden";
-          const formText = "Form " + s.team1 + ": " + formHtml(t.formA) + "  |  " + s.team2 + ": " + formHtml(t.formB);
+          else                  tendenz = "Tipp: Unentschieden";
+
+          const formText =
+            "Form " + s.team1 + ": " + formHtml(t.formA) +
+            "  |  " + s.team2 + ": " + formHtml(t.formB);
+
           const zeile = document.createElement("div");
           zeile.className = "spiel";
-          zeile.innerHTML = '<span class="datum">' + s.date + '</span><span class="heim">' + s.team1 + '</span><span class="ergebnis offen">' + t.gh + ':' + t.ga + '</span><span class="gast">' + s.team2 + '</span>';
+          zeile.innerHTML =
+            '<span class="datum">' + s.date + '</span>' +
+            '<span class="heim">' + s.team1 + '</span>' +
+            '<span class="ergebnis offen">' + t.gh + ':' + t.ga + '</span>' +
+            '<span class="gast">' + s.team2 + '</span>';
           bereich.appendChild(zeile);
+
           const info = document.createElement("div");
           info.className = "subinfo";
           info.innerHTML = tendenz + "   —   " + formText;
           bereich.appendChild(info);
+
           anzahl++;
         }
       }
+
       if (anzahl === 0) {
         bereich.innerHTML = '<p style="text-align:center">Aktuell keine offenen Gruppenspiele für eine Vorhersage.</p>';
       }
     }
+
+    // ---- Eigene Tipps ----
+
     function tippSchluessel(s) {
       return s.date + "|" + s.team1 + "|" + s.team2;
     }
+
     function ladeAlleTipps() {
       try { return JSON.parse(localStorage.getItem("wm2026_tipps")) || {}; }
       catch (e) { return {}; }
     }
+
     function speichereAlleTipps(obj) {
       localStorage.setItem("wm2026_tipps", JSON.stringify(obj));
     }
+
     function punkteFuer(tippH, tippA, echtH, echtA) {
       if (tippH === null || tippA === null) return 0;
       if (tippH === echtH && tippA === echtA) return 4;
       if (Math.sign(tippH - tippA) === Math.sign(echtH - echtA)) return 2;
       return 0;
     }
+
     function zeigeMeineTipps(spiele) {
       const tipps = ladeAlleTipps();
       const bereich = document.getElementById("meinetipps");
       bereich.innerHTML = "";
+
       function summiere() {
         const aktuell = ladeAlleTipps();
         let gesamt = 0;
@@ -285,37 +464,50 @@
         }
         document.getElementById("punktestand").textContent = "Deine Tipp-Punkte: " + gesamt;
       }
+
       const gruppen = [...new Set(spiele.filter(x => x.group).map(x => x.group))].sort();
       for (const gruppe of gruppen) {
         const ueberschrift = document.createElement("div");
         ueberschrift.className = "gruppe";
         ueberschrift.textContent = gruppe;
         bereich.appendChild(ueberschrift);
+
         for (const s of spiele) {
           if (s.group !== gruppe) continue;
           const key = tippSchluessel(s);
           const gespeichert = tipps[key] || { h: "", a: "" };
+
           const zeile = document.createElement("div");
           zeile.className = "spiel";
+
           const datum = document.createElement("span");
           datum.className = "datum"; datum.textContent = s.date;
+
           const heim = document.createElement("span");
           heim.className = "heim"; heim.textContent = s.team1;
+
           const mitte = document.createElement("span");
           mitte.className = "mitte";
+
           const inH = document.createElement("input");
           inH.type = "number"; inH.min = "0"; inH.className = "tippfeld"; inH.value = gespeichert.h;
+
           const doppel = document.createElement("span");
           doppel.textContent = ":";
+
           const inA = document.createElement("input");
           inA.type = "number"; inA.min = "0"; inA.className = "tippfeld"; inA.value = gespeichert.a;
+
           mitte.appendChild(inH);
           mitte.appendChild(doppel);
           mitte.appendChild(inA);
+
           const gast = document.createElement("span");
           gast.className = "gast"; gast.textContent = s.team2;
+
           const info = document.createElement("div");
           info.className = "subinfo";
+
           function zeigeInfo() {
             if (s.score && s.score.ft) {
               const th = inH.value === "" ? null : parseInt(inH.value);
@@ -327,6 +519,7 @@
               info.textContent = "";
             }
           }
+
           function beiEingabe() {
             tipps[key] = { h: inH.value, a: inA.value };
             speichereAlleTipps(tipps);
@@ -335,21 +528,28 @@
           }
           inH.addEventListener("input", beiEingabe);
           inA.addEventListener("input", beiEingabe);
+
           zeile.appendChild(datum);
           zeile.appendChild(heim);
           zeile.appendChild(mitte);
           zeile.appendChild(gast);
           bereich.appendChild(zeile);
           bereich.appendChild(info);
+
           zeigeInfo();
         }
       }
+
       summiere();
     }
+
     ladeSpiele();
+
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("service-worker.js").catch(function (e) { console.log("Service Worker Fehler:", e); });
+      navigator.serviceWorker.register("service-worker.js")
+        .catch(function (e) { console.log("Service Worker Fehler:", e); });
     }
   </script>
+
 </body>
 </html>
