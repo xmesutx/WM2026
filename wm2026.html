@@ -434,7 +434,7 @@
       const abwehr = letzeGegen / basis;
 
       // Form: die letzten 4 Spiele
-      const letzte = d.form.slice(-4);
+      const letzte = d.form;  // ALLE Spiele
       let formPunkte = 0;
       for (const e of letzte) formPunkte += (e === "S" ? 3 : e === "U" ? 1 : 0);
       const formPpg = letzte.length ? formPunkte / letzte.length : 0;
