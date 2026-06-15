@@ -1,0 +1,19 @@
+{
+  "name": "WM 2026 – Analyse & Tipp",
+  "short_name": "WM 2026",
+  "description": "Live-Daten, Gruppentabellen, Tipp-Vorschläge und eigene Tipps zur WM 2026.",
+  "start_url": "wm2026.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b3d2e",
+  "theme_color": "#0b3d2e",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
