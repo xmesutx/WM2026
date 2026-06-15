@@ -669,6 +669,7 @@
     }
 
     ladeSpiele();
+setInterval(ladeSpiele, 5000); // Alle 5 Sekunden aktualisieren
 
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("service-worker.js")
