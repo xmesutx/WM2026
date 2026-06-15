@@ -84,7 +84,10 @@
     .formU { color: #cccccc; font-weight: bold; }
     .formN { color: #ff6b6b; font-weight: bold; }
     .punkteGut { color: #5bd66f; font-weight: bold; }
-    .tabelle-box { display: inline-block; vertical-align: top; margin: 8px; width: 430px; max-width: 100%; }
+    .tabelle-box { display: inline-block; vertical-align: top; margin: 8px; width: 430px; max-width: calc(50% - 16px); }
+@media (max-width: 768px) {
+  .tabelle-box { width: 100%; max-width: 100%; margin: 8px 0; display: block; }
+}
     .tabellen-bereich { text-align: center; }
     table { border-collapse: collapse; background: #ffffff10; border-radius: 10px; overflow: hidden; width: 100%; table-layout: fixed; }
     th, td { padding: 5px 4px; text-align: center; font-size: 14px; }
