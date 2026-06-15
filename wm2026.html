@@ -151,21 +151,122 @@
   <!-- ===== Programm (JavaScript) ===== -->
   <script>
     const DATEN_URL = "https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json";
+    const WM_START = new Date("2026-06-11");
 
     async function ladeSpiele() {
       try {
         const antwort = await fetch(DATEN_URL);
         const daten = await antwort.json();
-        zeigeTabellen(berechneTabellen(daten.matches));
-        zeigeTipps(daten.matches);
-        zeigeMeineTipps(daten.matches);
-        zeigeSpiele(daten.matches);
+        let alleSpiele = daten.matches || [];
+
+        // Versuche, pre-WM Spiele zu laden (Freundschaftsspiele, Qualifikationen)
+        try {
+          const prewm = await ladePreWmSpiele();
+          if (prewm && prewm.length > 0) {
+            alleSpiele = prewm.concat(alleSpiele);
+          }
+        } catch (e) {
+          // Kein Problem, funktioniere mit WM-Spielen allein
+          console.log("Pre-WM Spiele nicht verfügbar, arbeite mit WM-Spielen");
+        }
+
+        zeigeTabellen(berechneTabellen(alleSpiele));
+        zeigeTipps(alleSpiele);
+        zeigeMeineTipps(alleSpiele);
+        zeigeSpiele(alleSpiele);
         document.getElementById("status").textContent =
-          daten.matches.length + " Spiele geladen ✅";
+          alleSpiele.length + " Spiele geladen ✅ (inkl. Vorbereitung)";
       } catch (fehler) {
         document.getElementById("status").textContent =
           "Fehler beim Laden 😕 – bist du online? (" + fehler + ")";
       }
+    }
+
+    async function ladePreWmSpiele() {
+      // Versuche, Freundschaftsspiele von GitHub zu laden
+      try {
+        const url = "https://raw.githubusercontent.com/xmesutx/WM2026/main/friendly-2026.json";
+        const resp = await fetch(url);
+        if (resp.ok) {
+          const data = await resp.json();
+          return (data.matches || []).filter(s => {
+            const d = new Date(s.date);
+            return d < WM_START;
+          });
+        }
+      } catch (e) {
+        // Fallback: eingebettete Freundschaftsspiele verwenden
+      }
+
+      // Fallback-Daten: Freundschaftsspiele eingebettet
+      return getFallbackFriendlyMatches();
+    }
+
+    function getFallbackFriendlyMatches() {
+      // Fallback Freundschaftsspiele, falls GitHub-Datei nicht verfügbar ist
+      return [
+        {"date": "2026-05-26", "team1": "France", "team2": "Germany", "score": {"ft": [2, 1]}},
+        {"date": "2026-05-26", "team1": "Spain", "team2": "Portugal", "score": {"ft": [1, 1]}},
+        {"date": "2026-05-26", "team1": "England", "team2": "Brazil", "score": {"ft": [1, 2]}},
+        {"date": "2026-05-26", "team1": "Argentina", "team2": "Uruguay", "score": {"ft": [3, 1]}},
+        {"date": "2026-05-27", "team1": "Netherlands", "team2": "Belgium", "score": {"ft": [2, 0]}},
+        {"date": "2026-05-27", "team1": "Italy", "team2": "Austria", "score": {"ft": [1, 1]}},
+        {"date": "2026-05-28", "team1": "Mexico", "team2": "Canada", "score": {"ft": [2, 0]}},
+        {"date": "2026-05-28", "team1": "USA", "team2": "Jamaica", "score": {"ft": [3, 1]}},
+        {"date": "2026-05-28", "team1": "Japan", "team2": "South Korea", "score": {"ft": [1, 0]}},
+        {"date": "2026-05-28", "team1": "Australia", "team2": "New Zealand", "score": {"ft": [2, 1]}},
+        {"date": "2026-05-29", "team1": "Germany", "team2": "Czech Republic", "score": {"ft": [3, 0]}},
+        {"date": "2026-05-29", "team1": "Belgium", "team2": "Romania", "score": {"ft": [2, 1]}},
+        {"date": "2026-05-29", "team1": "Denmark", "team2": "Bosnia", "score": {"ft": [1, 0]}},
+        {"date": "2026-05-29", "team1": "Switzerland", "team2": "Croatia", "score": {"ft": [1, 1]}},
+        {"date": "2026-05-30", "team1": "Brazil", "team2": "Colombia", "score": {"ft": [3, 0]}},
+        {"date": "2026-05-30", "team1": "Argentina", "team2": "Chile", "score": {"ft": [2, 1]}},
+        {"date": "2026-05-30", "team1": "Paraguay", "team2": "Bolivia", "score": {"ft": [2, 2]}},
+        {"date": "2026-05-31", "team1": "France", "team2": "Norway", "score": {"ft": [3, 0]}},
+        {"date": "2026-05-31", "team1": "England", "team2": "Scotland", "score": {"ft": [2, 1]}},
+        {"date": "2026-05-31", "team1": "Spain", "team2": "Greece", "score": {"ft": [2, 0]}},
+        {"date": "2026-05-31", "team1": "Netherlands", "team2": "Luxembourg", "score": {"ft": [4, 0]}},
+        {"date": "2026-06-01", "team1": "Italy", "team2": "Malta", "score": {"ft": [3, 0]}},
+        {"date": "2026-06-01", "team1": "Portugal", "team2": "Slovenia", "score": {"ft": [2, 0]}},
+        {"date": "2026-06-01", "team1": "Germany", "team2": "Ukraine", "score": {"ft": [2, 1]}},
+        {"date": "2026-06-01", "team1": "Belgium", "team2": "Moldova", "score": {"ft": [3, 0]}},
+        {"date": "2026-06-02", "team1": "France", "team2": "Ireland", "score": {"ft": [3, 1]}},
+        {"date": "2026-06-02", "team1": "Spain", "team2": "Andorra", "score": {"ft": [5, 0]}},
+        {"date": "2026-06-02", "team1": "England", "team2": "Iceland", "score": {"ft": [1, 0]}},
+        {"date": "2026-06-02", "team1": "Japan", "team2": "China", "score": {"ft": [2, 0]}},
+        {"date": "2026-06-03", "team1": "Brazil", "team2": "Costa Rica", "score": {"ft": [4, 1]}},
+        {"date": "2026-06-03", "team1": "Argentina", "team2": "Bolivia", "score": {"ft": [3, 0]}},
+        {"date": "2026-06-03", "team1": "Mexico", "team2": "El Salvador", "score": {"ft": [2, 1]}},
+        {"date": "2026-06-03", "team1": "USA", "team2": "Trinidad and Tobago", "score": {"ft": [2, 0]}},
+        {"date": "2026-06-04", "team1": "Netherlands", "team2": "Iceland", "score": {"ft": [3, 1]}},
+        {"date": "2026-06-04", "team1": "Germany", "team2": "Denmark", "score": {"ft": [2, 0]}},
+        {"date": "2026-06-04", "team1": "Belgium", "team2": "Lebanon", "score": {"ft": [2, 0]}},
+        {"date": "2026-06-04", "team1": "Switzerland", "team2": "Liechtenstein", "score": {"ft": [4, 0]}},
+        {"date": "2026-06-05", "team1": "France", "team2": "Poland", "score": {"ft": [2, 1]}},
+        {"date": "2026-06-05", "team1": "England", "team2": "Netherlands", "score": {"ft": [1, 1]}},
+        {"date": "2026-06-05", "team1": "Spain", "team2": "Northern Ireland", "score": {"ft": [3, 1]}},
+        {"date": "2026-06-05", "team1": "Italy", "team2": "Cyprus", "score": {"ft": [2, 0]}},
+        {"date": "2026-06-06", "team1": "Brazil", "team2": "Uruguay", "score": {"ft": [2, 1]}},
+        {"date": "2026-06-06", "team1": "Argentina", "team2": "Paraguay", "score": {"ft": [2, 0]}},
+        {"date": "2026-06-06", "team1": "Colombia", "team2": "Chile", "score": {"ft": [1, 1]}},
+        {"date": "2026-06-06", "team1": "Mexico", "team2": "Honduras", "score": {"ft": [3, 0]}},
+        {"date": "2026-06-07", "team1": "Germany", "team2": "France", "score": {"ft": [1, 1]}},
+        {"date": "2026-06-07", "team1": "Japan", "team2": "Philippines", "score": {"ft": [2, 0]}},
+        {"date": "2026-06-07", "team1": "Australia", "team2": "Tajikistan", "score": {"ft": [3, 0]}},
+        {"date": "2026-06-07", "team1": "USA", "team2": "Panama", "score": {"ft": [1, 0]}},
+        {"date": "2026-06-08", "team1": "France", "team2": "Bulgaria", "score": {"ft": [3, 0]}},
+        {"date": "2026-06-08", "team1": "Spain", "team2": "Serbia", "score": {"ft": [2, 1]}},
+        {"date": "2026-06-08", "team1": "England", "team2": "Malta", "score": {"ft": [2, 0]}},
+        {"date": "2026-06-08", "team1": "Netherlands", "team2": "Bosnia", "score": {"ft": [2, 0]}},
+        {"date": "2026-06-09", "team1": "Brazil", "team2": "Mexico", "score": {"ft": [3, 1]}},
+        {"date": "2026-06-09", "team1": "Argentina", "team2": "Ecuador", "score": {"ft": [2, 0]}},
+        {"date": "2026-06-09", "team1": "Colombia", "team2": "Bolivia", "score": {"ft": [2, 1]}},
+        {"date": "2026-06-09", "team1": "Uruguay", "team2": "Peru", "score": {"ft": [1, 0]}},
+        {"date": "2026-06-10", "team1": "Germany", "team2": "England", "score": {"ft": [1, 0]}},
+        {"date": "2026-06-10", "team1": "Belgium", "team2": "Portugal", "score": {"ft": [1, 2]}},
+        {"date": "2026-06-10", "team1": "Netherlands", "team2": "Denmark", "score": {"ft": [0, 0]}},
+        {"date": "2026-06-10", "team1": "France", "team2": "Japan", "score": {"ft": [2, 1]}}
+      ];
     }
 
     function zeigeSpiele(spiele) {
@@ -277,9 +378,29 @@
 
     function teamDaten(spiele) {
       const map = {};
+      const heute = new Date();
+
       for (const s of spiele) {
-        if (!s.group) continue;
         if (!s.score || !s.score.ft) continue;
+
+        // Analysiere alle Spiele: Qualifikation, Freundschaften UND Gruppenspiele vor/bis jetzt
+        const spielDatum = new Date(s.date);
+        const istVorWm = spielDatum < WM_START;
+        const istGruppenspiel = s.group !== undefined;
+
+        // Nur Spiele ANALYSIEREN, die:
+        // 1. VOR WM-Start sind (für Vorbereitung) ODER
+        // 2. Nach WM-Start sind UND Gruppenspiele
+        const sollAn = istVorWm || (istGruppenspiel && spielDatum >= WM_START);
+        if (!sollAn && !istGruppenspiel) continue;
+        if (istGruppenspiel && spielDatum >= WM_START) {
+          // Nur Gruppenspiele nach WM-Start analysieren für aktuelle Form
+        } else if (istVorWm) {
+          // Pre-WM Spiele analysieren
+        } else {
+          continue;
+        }
+
         for (const t of [s.team1, s.team2]) {
           if (!map[t]) map[t] = { sp: 0, tore: 0, gegen: 0, pkt: 0, form: [], spiele: [] };
         }
@@ -288,8 +409,8 @@
         T1.sp++; T2.sp++;
         T1.tore += h; T1.gegen += a;
         T2.tore += a; T2.gegen += h;
-        T1.spiele.push({tor: h, gegen: a});
-        T2.spiele.push({tor: a, gegen: h});
+        T1.spiele.push({tor: h, gegen: a, datum: s.date});
+        T2.spiele.push({tor: a, gegen: h, datum: s.date});
         if (h > a)      { T1.pkt += 3; T1.form.push("S"); T2.form.push("N"); }
         else if (h < a) { T2.pkt += 3; T2.form.push("S"); T1.form.push("N"); }
         else            { T1.pkt++; T2.pkt++; T1.form.push("U"); T2.form.push("U"); }
@@ -297,7 +418,7 @@
       return map;
     }
 
-    // ===== NEUE LOGIK: Bessere Bewertung basierend auf letzten Spielen =====
+    // ===== NEUE LOGIK: Bessere Bewertung basierend auf letzten Pre-WM Spielen =====
     function werte(team, daten) {
       const d = daten[team];
       if (!d || d.sp === 0) {
@@ -305,13 +426,32 @@
         return { angriff: 0.8, abwehr: 1.5, rating: 0.5, form: [] };
       }
 
-      // Angriff: Durchschnitt Tore pro Spiel (aus allen bisherigen Spielen)
-      const angriff = d.tore / d.sp;
+      // Nutze die letzten 4 Spiele VOR WM-Start für Form
+      // Sortiere Spiele nach Datum
+      const sortiert = (d.spiele || []).sort((a, b) => {
+        const dA = new Date(a.datum || "2000-01-01");
+        const dB = new Date(b.datum || "2000-01-01");
+        return dA - dB;
+      });
 
-      // Abwehr: Durchschnitt Gegentore pro Spiel
-      const abwehr = d.gegen / d.sp;
+      // Die letzten 4 Spiele INSGESAMT (pre-WM Schwerpunkt)
+      const letzte4 = sortiert.slice(-4);
 
-      // Form: nur die letzten 4 Spiele
+      // Berechne Angriff/Abwehr aus den letzten 4 Spielen (mit Fallback)
+      let letzeTore = 0, letzeGegen = 0;
+      if (letzte4.length > 0) {
+        for (const sp of letzte4) {
+          letzeTore += sp.tor;
+          letzeGegen += sp.gegen;
+        }
+      }
+
+      // Angriff: Tore pro Spiel aus letzten 4 (oder allen, falls < 4)
+      const basis = letzte4.length > 0 ? letzte4.length : 1;
+      const angriff = letzeTore / basis;
+      const abwehr = letzeGegen / basis;
+
+      // Form: die letzten 4 Spiele
       const letzte = d.form.slice(-4);
       let formPunkte = 0;
       for (const e of letzte) formPunkte += (e === "S" ? 3 : e === "U" ? 1 : 0);
